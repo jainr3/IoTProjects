@@ -10,17 +10,15 @@
 #define motorInput3 12
 #define motorInput4 13
 
-const int freq = 30000;
-const int pwmChannelLeft = 0;
-const int pwmChannelRight = 1;
-const int resolution = 8;
-int dutyCycle = 200;
+#define freq 9000
+#define pwmChannelLeft 0
+#define pwmChannelRight 1
+#define resolution 10
 
 const char* ssid = "SuperSecret";
 const char* password = "SuperSecret";
 
 AsyncWebServer server(80);
-
 
 /*
 INDIVIDUAL WHEEL MOVE FUNCTIONS
@@ -68,7 +66,7 @@ void stop() {
 }
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   delay(10000);   
   
   if(!SPIFFS.begin()){
@@ -104,24 +102,29 @@ void setup() {
     int paramsNr = request->params();
     AsyncWebParameter* x_coord = request->getParam(0);
     AsyncWebParameter* y_coord = request->getParam(1);
-    
+
     int x = x_coord->value().toInt() * 10;
     int y = y_coord->value().toInt() * 10;
     
+    //Serial.print(x);
+    //Serial.print(" ");
+    //Serial.println(y);
+    
     int leftSpeed = abs(y);
     int rightSpeed = abs(y);
+    
     //set the direction based on y being negative or positive 
     //adjust to speed of each each motor depending on the x-axis
     //it slows down one motor and speeds up the other proportionately 
     //based on the amount of turning
-    leftSpeed = constrain(leftSpeed + x/2, 0, 255);
-    rightSpeed = constrain(rightSpeed - x/2, 0, 255);
-  
-    //use the speed and direction values to turn the motors
-    //if either motor is going in reverse from what is expected,
-    //just change the 2 digitalWrite lines for both motors:
-    //!ydir would become ydir, and ydir would become !ydir
-  
+    leftSpeed = constrain(leftSpeed + x/2, 0, 1023);
+    rightSpeed = constrain(rightSpeed - x/2, 0, 1023);
+    
+    //Serial.print(leftSpeed);
+    //Serial.print(" ");
+    //Serial.println(rightSpeed);
+    
+    //use the speed and direction values to turn the motors  
     if (leftSpeed < 20) {
       stopLeft();
     }
@@ -143,7 +146,6 @@ void setup() {
     
     //return an HTTP 200
     request->send(200, "text/plain", "");   
-
   });
   
   server.begin();
