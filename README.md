@@ -6,7 +6,9 @@ Collection of Arduino Uno, ESP32 projects.
 
 ### ESP32 WiFi Car
 
-This project features a ESP32 that can remotely control a small car via a webserver that features a joystick. Because of the variable delay between HTTP request and responses, the car's motors may not always react quick enough and it is possible that it could get "stuck" on a previous joystick command. The mapping for the joystick to the motor speeds is shown below. 
+This project features a ESP32 that can remotely control a small car via a webserver that features a joystick. Because of the variable delay between HTTP request and responses, the car's motors may not always react quick enough and it is possible that it could get "stuck" on a previous joystick command. The hardware wiring and mapping for the joystick to the motor speeds is shown below. 
+
+![Hardware](ESP32_WiFi_Car/hardware_wiring.png)
 
 Given x and y the leftSpeed and rightSpeed are:
 
@@ -28,7 +30,9 @@ This project features a ESP32-CAM that can send a captured photograph by email t
 
 ### ESP32 Bluetooth Low Energy (BLE) Car
 
-This project features an improvement on the ESP32 WiFi Car by using Bluetooth Low Energy to improve the response time between the joystick and the car. In addition, this project uses a client-server model where the car acts as the server to which the joystick module connects to as a client. The joystick mapping is also different than the WiFi Car in that the resting (center) state is no longer (0, 0). To resolve this, the project makes use of the switch button on the [joystick module](ESP32_BLE_Car/joystick.png) that allows us to toggle between forwards and backwards direction.
+This project features an improvement on the ESP32 WiFi Car by using Bluetooth Low Energy to improve the response time between the joystick and the car. In addition, this project uses a client-server model where the car acts as the server to which the joystick module connects to as a client. The joystick mapping is also different than the WiFi Car in that the resting (center) state is no longer (0, 0). To resolve this, the project makes use of the switch button on the [joystick module](ESP32_BLE_Car/joystick.png) that allows us to toggle between forwards and backwards direction. The hardware wiring and mapping for the joystick to the motor speeds is shown below.
+
+![Hardware](ESP32_BLE_Car/hardware_wiring.png)
 
 Given x and y the leftSpeed and rightSpeed are simply:
 
