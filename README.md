@@ -1,4 +1,4 @@
-# ArduinoProjects
+# IoTProjects
 
 Collection of Arduino Uno, ESP32 projects.
 
